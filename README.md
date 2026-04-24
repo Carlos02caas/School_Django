@@ -1,51 +1,83 @@
-# 📘 Desarrollo Escuela 📘
 
-## 1. Descripción 📄
 
-**Nombre del proyecto:** Sistema Escolar  
-**Autor:** Carlos Alavez
-**Fecha de inicio:** [04/04/2026]
-**Tecnologías principales:**  
+# 📘 School Development 📘
 
-- Base de datos: PostgreSQL / SQLite3
+## 1. Description 📄
+
+**Project name:** School System  
+**Author:** Carlos Alavez  
+**Start date:** [04/04/2026]  
+**Main technologies:**  
+
+- Database: PostgreSQL / SQLite3  
 - Backend: FastAPI, Django Rest Framework  
 - Frontend: Django, Flask  
 - ORM: SQLAlchemy / Django ORM  
-- Control de versiones: Git + GitHub
+- Version control: Git + GitHub  
 
-**Descripción general:**  
-Este proyecto simula una escuela con gestión de personas, cursos, horarios, inscripciones y calificaciones. Se desarrollan dos APIs (FastAPI y DRF) y dos aplicaciones (Django y Flask) para demostrar diferentes enfoques de desarrollo.
+**General description:**  
+This project simulates a school with management of people, courses, schedules, enrollments, and grades. Two APIs (FastAPI and DRF) and two applications (Django and Flask) are developed to demonstrate different development approaches.
 
 ---
 
-## 2. Base de datos 💾
+## 2. Database 💾
 
-### Diagrama DER
+### ER Diagram
 
-![Diagrama DER](/imgs/Diagrama%20Entidad-Relación.png)
+![ER Diagram](/imgs/School_Diagram.png)
 
-### Tablas principales
+### Main tables
 
-| Tabla | Descripción |
+| Table | Description |
 |--------|-------------|
-| Personas | Contiene información general de todas las personas (alumnos, profesores, administrativos, staff). |
-| Escuela | Define los campus y datos generales de la institución. |
-| Cursos | Define los cursos disponibles y su área. |
-| Semestres | Representa los periodos académicos. |
-| Horarios | Define los horarios disponibles para cada curso. |
-| Inscripciones | Registra la inscripción de alumnos en cursos y su estatus. |
-| Inscripcion_Horario | Vincula inscripciones con horarios seleccionados. |
-| Calificaciones | Registra las calificaciones parciales y promedio por semestre. |
+| People | Contains general information about all individuals (students, teachers, administrative staff, staff). |
+| School | Defines campuses and general institution data. |
+| Courses | Defines available courses and their area. |
+| Semesters | Represents academic periods. |
+| Schedules | Defines available schedules for each course. |
+| Enrollments | Records student enrollment in courses and their status. |
+| Enrollment_Schedule | Links enrollments with selected schedules. |
+| Grades | Records partial grades and semester averages. |
 
 ---
 
-### 2.3 Relaciones
+### 2.3 Relationships
 
-- Personas → Escuela (N:1)
-- Escuela → Cursos (1:N)
-- Cursos → Horarios (1:N)
-- Semestres → Horarios (1:N)
-- Personas → Inscripciones (1:N)
-- Cursos → Inscripciones (1:N)
-- Inscripciones → Inscripcion_Horario (M:N)
-- Inscripciones → Calificaciones (1:1)
+- People → School (N:1)  
+- School → Courses (1:N)  
+- Courses → Schedules (1:N)  
+- Semesters → Schedules (1:N)  
+- People → Enrollments (1:N)  
+- Courses → Enrollments (1:N)  
+- Enrollments → Enrollment_Schedule (M:N)  
+- Enrollments → Grades (1:1)  
+
+---
+
+### 2.4 Create the database
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+#### Install PostgreSQL
+
+```bash 
+sudo apt update
+
+sudo apt install postgresql postgresql-contrib
+sudo -u postgres psql
+
+#### Enter the database
+
+```sql
+CREATE DATABASE EscolarSystem;
+
+CREATE USER ADMIN WITH PASSWORD '4dm1n-p4ssw0rd';
+ALTER ROLE ADMIN SET client_encoding TO 'utf8';
+ALTER ROLE ADMIN SET default_transaction_isolation TO 'read committed';
+ALTER ROLE ADMIN SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE EscolarSystem TO ADMIN;
+
+#exit the database
+\q
+```
